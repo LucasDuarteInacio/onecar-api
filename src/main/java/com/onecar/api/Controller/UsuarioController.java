@@ -4,6 +4,7 @@ import com.onecar.api.Entity.Usuario;
 import com.onecar.api.Service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -29,5 +30,15 @@ public class UsuarioController {
     public List<Usuario> listarTodos(){
         return service.buscarTodos();
     }
+
+    @PostMapping("/avatar/{id}")
+    public void upload(@RequestParam MultipartFile avatar,@PathVariable("id") Integer id){
+        service.salvarAvatar(avatar,id);
+    }
+    @GetMapping("/{id}")
+    public Usuario buscarUsuario(@PathVariable("id") Integer id){
+        return service.buscarPorId(id);
+    }
+
 
 }
